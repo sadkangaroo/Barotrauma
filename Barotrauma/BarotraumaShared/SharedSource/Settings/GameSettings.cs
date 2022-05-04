@@ -51,6 +51,7 @@ namespace Barotrauma
                     EnableSplashScreen = true,
                     PauseOnFocusLost = true,
                     AimAssistAmount = 0.5f,
+                    RunByDefault = false,
                     EnableMouseLook = true,
                     ChatOpen = true,
                     CrewMenuOpen = true,
@@ -124,6 +125,7 @@ namespace Barotrauma
             public bool EnableSplashScreen;
             public bool PauseOnFocusLost;
             public float AimAssistAmount;
+            public bool RunByDefault;
             public bool EnableMouseLook;
             public bool ChatOpen;
             public bool CrewMenuOpen;

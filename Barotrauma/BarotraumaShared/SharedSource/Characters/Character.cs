@@ -1509,9 +1509,9 @@ namespace Barotrauma
                 if (IsKeyDown(InputType.Down)) { targetMovement.Y -= 1.0f; }
             }
             bool run = false;
-            if ((IsKeyDown(InputType.Run) && AnimController.ForceSelectAnimationType == AnimationType.NotDefined) || ForceRun)
+            if (((IsKeyDown(InputType.Run) ^ GameSettings.CurrentConfig.RunByDefault) && AnimController.ForceSelectAnimationType == AnimationType.NotDefined) || ForceRun)
+            // if ((AnimController.ForceSelectAnimationType == AnimationType.NotDefined) || ForceRun)
             {
-
                 run = CanRun;
             }
             return ApplyMovementLimits(targetMovement, AnimController.GetCurrentSpeed(run));

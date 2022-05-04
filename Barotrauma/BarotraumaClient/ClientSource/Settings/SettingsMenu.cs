@@ -464,6 +464,9 @@ namespace Barotrauma
             Slider(layout, (0, 1), 101, Percentage, unsavedConfig.AimAssistAmount, (v) => unsavedConfig.AimAssistAmount = v, TextManager.Get("AimAssistTooltip"));
             Tickbox(layout, TextManager.Get("EnableMouseLook"), TextManager.Get("EnableMouseLookTooltip"), unsavedConfig.EnableMouseLook, (v) => unsavedConfig.EnableMouseLook = v);
             Spacer(layout);
+            Tickbox(layout, TextManager.Get("RunByDefault"), TextManager.Get("RunByDefaultTooltip"), unsavedConfig.RunByDefault, (v) => unsavedConfig.RunByDefault = v);
+            Spacer(layout);
+            
 
             GUIListBox keyMapList =
                 new GUIListBox(new RectTransform((2.0f, 0.7f),
@@ -645,9 +648,6 @@ namespace Barotrauma
                 .ToArray();
             Label(layout, TextManager.Get("Language"), GUIStyle.SubHeadingFont);
             Dropdown(layout, (v) => TextManager.GetTranslatedLanguageName(v), null, languages, unsavedConfig.Language, (v) => unsavedConfig.Language = v);
-            Spacer(layout);
-            
-            Tickbox(layout, TextManager.Get("PauseOnFocusLost"), TextManager.Get("PauseOnFocusLostTooltip"), unsavedConfig.PauseOnFocusLost, (v) => unsavedConfig.PauseOnFocusLost = v);
             Spacer(layout);
             
             Tickbox(layout, TextManager.Get("DisableInGameHints"), TextManager.Get("DisableInGameHintsTooltip"), unsavedConfig.DisableInGameHints, (v) => unsavedConfig.DisableInGameHints = v);
