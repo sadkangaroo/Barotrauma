@@ -1,0 +1,3 @@
+﻿<contentpackage name="CoreMod" corepackage="false">
+  <Text file="%ModDir%/Texts/English/EnglishAdditional.xml" />
+</contentpackage>

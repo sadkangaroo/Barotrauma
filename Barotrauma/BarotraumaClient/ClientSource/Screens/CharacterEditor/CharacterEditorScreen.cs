@@ -494,7 +494,7 @@ namespace Barotrauma.CharacterEditor
                 {
                     animTestPoseToggle.Selected = false;
                 }
-                if (PlayerInput.KeyHit(InputType.Run))
+                if (PlayerInput.KeyHit(InputType.ToggleWalkOrRun))
                 {
                     int index = 0;
                     bool isSwimming = character.AnimController.ForceSelectAnimationType == AnimationType.SwimFast || character.AnimController.ForceSelectAnimationType == AnimationType.SwimSlow;

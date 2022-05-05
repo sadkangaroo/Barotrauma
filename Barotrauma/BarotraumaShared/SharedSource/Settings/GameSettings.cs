@@ -51,8 +51,8 @@ namespace Barotrauma
                     EnableSplashScreen = true,
                     PauseOnFocusLost = true,
                     AimAssistAmount = 0.5f,
-                    RunByDefault = false,
-                    EnableMouseLook = true,
+                    RunByDefault = true,
+                    EnableMouseLook = false,
                     ChatOpen = true,
                     CrewMenuOpen = true,
                     CampaignDisclaimerShown = false,
@@ -277,7 +277,7 @@ namespace Barotrauma
                 private readonly static ImmutableDictionary<InputType, KeyOrMouse> DefaultsQwerty =
                     new Dictionary<InputType, KeyOrMouse>()
                     {
-                        { InputType.Run, Keys.LeftShift },
+                        { InputType.ToggleWalkOrRun, Keys.LeftShift },
                         { InputType.Attack, Keys.R },
                         { InputType.Crouch, Keys.LeftControl },
                         { InputType.Grab, Keys.G },

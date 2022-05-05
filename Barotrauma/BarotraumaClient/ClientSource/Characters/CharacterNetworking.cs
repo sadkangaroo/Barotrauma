@@ -54,7 +54,7 @@ namespace Barotrauma
                     if (IsKeyDown(InputType.Right)) newInput |= InputNetFlags.Right;
                     if (IsKeyDown(InputType.Up)) newInput |= InputNetFlags.Up;
                     if (IsKeyDown(InputType.Down)) newInput |= InputNetFlags.Down;
-                    if (IsKeyDown(InputType.Run)) newInput |= InputNetFlags.Run;
+                    if (IsKeyDown(InputType.ToggleWalkOrRun)) newInput |= InputNetFlags.ToggleWalkOrRun;
                     if (IsKeyDown(InputType.Crouch)) newInput |= InputNetFlags.Crouch;
                     if (IsKeyHit(InputType.Select)) newInput |= InputNetFlags.Select; //TODO: clean up the way this input is registered
                     if (IsKeyHit(InputType.Deselect)) newInput |= InputNetFlags.Deselect;

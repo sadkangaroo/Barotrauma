@@ -7,7 +7,7 @@ namespace Barotrauma
         Aim,
         Up, Down, Left, Right,
         Attack,
-        Run, Crouch,
+        ToggleWalkOrRun, Crouch,
         MoveBackwards,
         InfoTab, Chat, RadioChat, CrewOrders,
         Ragdoll, Health, Grab,

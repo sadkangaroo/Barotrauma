@@ -1308,8 +1308,8 @@ namespace Barotrauma
                         return dequeuedInput.HasFlag(InputNetFlags.Up) && !prevDequeuedInput.HasFlag(InputNetFlags.Up);
                     case InputType.Down:
                         return dequeuedInput.HasFlag(InputNetFlags.Down) && !prevDequeuedInput.HasFlag(InputNetFlags.Down);
-                    case InputType.Run:
-                        return dequeuedInput.HasFlag(InputNetFlags.Run) && prevDequeuedInput.HasFlag(InputNetFlags.Run);
+                    case InputType.ToggleWalkOrRun:
+                        return dequeuedInput.HasFlag(InputNetFlags.ToggleWalkOrRun) && prevDequeuedInput.HasFlag(InputNetFlags.ToggleWalkOrRun);
                     case InputType.Crouch:
                         return dequeuedInput.HasFlag(InputNetFlags.Crouch) && !prevDequeuedInput.HasFlag(InputNetFlags.Crouch);
                     case InputType.Select:
@@ -1350,8 +1350,8 @@ namespace Barotrauma
                         return dequeuedInput.HasFlag(InputNetFlags.Up);                        
                     case InputType.Down:
                         return dequeuedInput.HasFlag(InputNetFlags.Down);
-                    case InputType.Run:
-                        return dequeuedInput.HasFlag(InputNetFlags.Run);
+                    case InputType.ToggleWalkOrRun:
+                        return dequeuedInput.HasFlag(InputNetFlags.ToggleWalkOrRun);
                     case InputType.Crouch:
                         return dequeuedInput.HasFlag(InputNetFlags.Crouch);
                     case InputType.Select:
@@ -1509,7 +1509,7 @@ namespace Barotrauma
                 if (IsKeyDown(InputType.Down)) { targetMovement.Y -= 1.0f; }
             }
             bool run = false;
-            if (((IsKeyDown(InputType.Run) ^ GameSettings.CurrentConfig.RunByDefault) && AnimController.ForceSelectAnimationType == AnimationType.NotDefined) || ForceRun)
+            if (((IsKeyDown(InputType.ToggleWalkOrRun) ^ GameSettings.CurrentConfig.RunByDefault) && AnimController.ForceSelectAnimationType == AnimationType.NotDefined) || ForceRun)
             // if ((AnimController.ForceSelectAnimationType == AnimationType.NotDefined) || ForceRun)
             {
                 run = CanRun;

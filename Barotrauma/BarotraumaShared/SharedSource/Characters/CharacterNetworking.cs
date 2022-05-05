@@ -46,7 +46,7 @@ namespace Barotrauma
             Up = 0x4,
             Down = 0x8,
             FacingLeft = 0x10,
-            Run = 0x20,
+            ToggleWalkOrRun = 0x20,
             Crouch = 0x40,
             Select = 0x80,
             Use = 0x100,

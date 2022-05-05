@@ -1,0 +1,11 @@
+<infotexts language="English" nowhitespace="false" translatedname="English">
+
+<runbydefault>Run by default</runbydefault>
+<runbydefaulttooltip>When enabled, the controlled character runs by default, and walks when left shift is held; when disabled, the behavior is reversed</runbydefaulttooltip>
+
+<inputtype.movebackwards>Move backwards</inputtype.movebackwards>
+<inputtype.togglewalkorrun>Toggle between walking and running</inputtype.togglewalkorrun>
+  
+</infotexts>
+
+
