@@ -1764,6 +1764,18 @@ namespace Barotrauma
                 (GameMain.NetworkMember == null || !GameMain.NetworkMember.IsClient || Controlled == this) &&
                 AnimController.OnGround && !AnimController.InWater)
             {
+                if (AnimController.TargetMovement.X != 0)
+                {
+                    if ((AnimController.TargetMovement.X > 0) ^ AnimController.IsMovingBackwards)
+                    {
+                        AnimController.TargetDir = Direction.Right;
+                    }
+                    if ((AnimController.TargetMovement.X < 0) ^ AnimController.IsMovingBackwards)
+                    {
+                        AnimController.TargetDir = Direction.Left;
+                    }
+                }
+                /*
                 if (dontFollowCursor)
                 {
                     AnimController.TargetDir = Direction.Right;
@@ -1781,6 +1793,7 @@ namespace Barotrauma
                         AnimController.TargetDir = Direction.Right;
                     }
                 }
+                */
             }
 
             if (GameMain.NetworkMember != null)

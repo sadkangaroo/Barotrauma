@@ -281,6 +281,7 @@ namespace Barotrauma
                         { InputType.Attack, Keys.R },
                         { InputType.Crouch, Keys.LeftControl },
                         { InputType.Grab, Keys.G },
+                        { InputType.MoveBackwards, Keys.LeftAlt },
                         { InputType.Health, Keys.H },
                         { InputType.Ragdoll, Keys.Space },
                         { InputType.Aim, MouseButton.SecondaryMouse },
