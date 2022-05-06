@@ -279,7 +279,7 @@ namespace Barotrauma.Steam
                 ContentPackageManager.CorePackages.ToArray(),
                 ContentPackageManager.EnabledPackages.Core!,
                 (p) => { },
-                heightScale: 1.0f / 13.0f);
+                heightScale: 1.0f);
             Label(topLeft, "", GUIStyle.SubHeadingFont, heightScale: 1.0f);
             topRight.ChildAnchor = Anchor.CenterLeft;
 

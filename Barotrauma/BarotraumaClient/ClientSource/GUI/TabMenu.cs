@@ -1874,7 +1874,7 @@ namespace Barotrauma
 
             if (!TalentTree.JobTalentTrees.TryGet(controlledCharacter.Info.Job.Prefab.Identifier, out TalentTree talentTree)) { return; }
 
-            new GUIFrame(new RectTransform(new Vector2(1f, 1f), talentFrameLayoutGroup.RectTransform), style: "HorizontalLine");
+            new GUIFrame(new RectTransform(new Vector2(1f, 0.01f), talentFrameLayoutGroup.RectTransform), style: "HorizontalLine");
 
             GUIListBox talentTreeListBox = new GUIListBox(new RectTransform(new Vector2(1f, 0.7f), talentFrameLayoutGroup.RectTransform, Anchor.TopCenter), isHorizontal: true, style: null);
 

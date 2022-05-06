@@ -304,7 +304,7 @@ namespace Barotrauma
 
         private void CreateUI()
         {
-            TopPanel = new GUIFrame(new RectTransform(new Vector2(GUI.Canvas.RelativeSize.X, 0.01f), GUI.Canvas) { MinSize = new Point(0, 35) }, "GUIFrameTop");
+            TopPanel = new GUIFrame(new RectTransform(new Vector2(GUI.Canvas.RelativeSize.X, 0.03f), GUI.Canvas) { MinSize = new Point(0, 35) }, "GUIFrameTop");
 
             GUILayoutGroup paddedTopPanel = new GUILayoutGroup(new RectTransform(new Vector2(0.98f, 0.8f), TopPanel.RectTransform, Anchor.Center),
                 isHorizontal: true, childAnchor: Anchor.CenterLeft)

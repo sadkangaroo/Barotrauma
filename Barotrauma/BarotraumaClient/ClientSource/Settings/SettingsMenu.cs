@@ -182,18 +182,18 @@ namespace Barotrauma
         private void Slider(GUILayoutGroup parent, Vector2 range, int steps, Func<float, string> labelFunc, float currentValue, Action<float> setter, LocalizedString? tooltip = null)
         {
             var layout = new GUILayoutGroup(NewItemRectT(parent), isHorizontal: true);
-            var slider = new GUIScrollBar(new RectTransform((0.82f, 1.0f), layout.RectTransform), style: "GUISlider")
+            var slider = new GUIScrollBar(new RectTransform((0.6f, 1.0f), layout.RectTransform), style: "GUISlider")
             {
                 Range = range,
                 BarScrollValue = currentValue,
                 Step = 1.0f / (float)(steps - 1),
-                BarSize = 1.0f / steps
+                BarSize = 1.0f / 50
             };
             if (tooltip != null)
             {
                 slider.ToolTip = tooltip;
             }
-            var label = new GUITextBlock(new RectTransform((0.18f, 1.0f), layout.RectTransform),
+            var label = new GUITextBlock(new RectTransform((0.4f, 1.0f), layout.RectTransform),
                 labelFunc(currentValue), wrap: false, textAlignment: Alignment.Center);
             slider.OnMoved = (sb, val) =>
             {
@@ -218,7 +218,7 @@ namespace Barotrauma
         }
 
         private string ScaleResolution(float scale) =>
-            $"{Round(unsavedConfig.Graphics.Width * scale)}\nx\n{Round(unsavedConfig.Graphics.Height * scale)}";
+            $"{Round(unsavedConfig.Graphics.Width * scale)}x{Round(unsavedConfig.Graphics.Height * scale)}";
 
         private string Percentage(float v) => $"{Round(v * 100)}%";
 
@@ -469,7 +469,7 @@ namespace Barotrauma
             
 
             GUIListBox keyMapList =
-                new GUIListBox(new RectTransform((2.0f, 0.7f),
+                new GUIListBox(new RectTransform((2.0f, 0.6f),
                     layout.RectTransform))
                 {
                     CanBeFocused = false,
@@ -484,12 +484,12 @@ namespace Barotrauma
             Action<KeyOrMouse>? currentSetter = null;
             void addInputToRow(GUILayoutGroup currRow, LocalizedString labelText, Func<LocalizedString> valueNameGetter, Action<KeyOrMouse> valueSetter)
             {
-                var inputFrame = new GUIFrame(new RectTransform((0.5f, 1.0f), currRow.RectTransform),
+                var inputFrame = new GUIFrame(new RectTransform((0.45f, 1.0f), currRow.RectTransform),
                     style: null);
-                var label = new GUITextBlock(new RectTransform((0.6f, 1.0f), inputFrame.RectTransform), labelText,
-                    font: GUIStyle.SmallFont) {ForceUpperCase = ForceUpperCase.Yes};
+                var label = new GUITextBlock(new RectTransform((0.5f, 1.0f), inputFrame.RectTransform), labelText,
+                    font: GUIStyle.SmallFont, overflowclip: true) {ForceUpperCase = ForceUpperCase.Yes};
                 var inputBox = new GUIButton(
-                    new RectTransform((0.4f, 1.0f), inputFrame.RectTransform, Anchor.TopRight, Pivot.TopRight),
+                    new RectTransform((0.5f, 1.0f), inputFrame.RectTransform, Anchor.CenterRight, Pivot.CenterRight),
                     valueNameGetter(), style: "GUITextBoxNoIcon")
                 {
                     OnClicked = (btn, obj) =>
@@ -596,6 +596,11 @@ namespace Barotrauma
                         TextManager.Get($"InputType.{input}"),
                         () => unsavedConfig.KeyMap.Bindings[input].Name,
                         (v) => unsavedConfig.KeyMap = unsavedConfig.KeyMap.WithBinding(input, v));
+                    if (j == 0)
+                    {
+                        var gapFrame = new GUIFrame(new RectTransform((0.1f, 1.0f), currRow.RectTransform),
+                            style: null);
+                    }
                 }
             }
 
@@ -613,11 +618,16 @@ namespace Barotrauma
                         TextManager.GetWithVariable("inventoryslotkeybind", "[slotnumber]", (currIndex+1).ToString(CultureInfo.InvariantCulture)),
                         () => unsavedConfig.InventoryKeyMap.Bindings[currIndex].Name,
                         (v) => unsavedConfig.InventoryKeyMap = unsavedConfig.InventoryKeyMap.WithBinding(currIndex, v));
+                    if (j == 0)
+                    {
+                        var gapFrame = new GUIFrame(new RectTransform((0.1f, 1.0f), currRow.RectTransform),
+                            style: null);
+                    }
                 }
             }
 
             GUILayoutGroup resetControlsHolder =
-                new GUILayoutGroup(new RectTransform((1.75f, 0.1f), layout.RectTransform), isHorizontal: true)
+                new GUILayoutGroup(new RectTransform((1.75f, 0.04f), layout.RectTransform), isHorizontal: true)
                 {
                     RelativeSpacing = 0.1f
                 };
@@ -651,8 +661,9 @@ namespace Barotrauma
             Spacer(layout);
             
             Tickbox(layout, TextManager.Get("DisableInGameHints"), TextManager.Get("DisableInGameHintsTooltip"), unsavedConfig.DisableInGameHints, (v) => unsavedConfig.DisableInGameHints = v);
+            Spacer(layout);
             var resetInGameHintsButton =
-                new GUIButton(new RectTransform(new Vector2(1.0f, 1.0f), layout.RectTransform),
+                new GUIButton(new RectTransform(new Vector2(1.0f, 0.04f), layout.RectTransform),
                     TextManager.Get("ResetInGameHints"), style: "GUIButtonSmall")
                 {
                     OnClicked = (button, o) =>
@@ -670,6 +681,7 @@ namespace Barotrauma
                         return false;
                     }
                 };
+            /*
             Spacer(layout);
             
             Label(layout, TextManager.Get("HUDScale"), GUIStyle.SubHeadingFont);
@@ -677,7 +689,8 @@ namespace Barotrauma
             Label(layout, TextManager.Get("InventoryScale"), GUIStyle.SubHeadingFont);
             Slider(layout, (0.75f, 1.25f), 51, Percentage, unsavedConfig.Graphics.InventoryScale, (v) => unsavedConfig.Graphics.InventoryScale = v);
             Label(layout, TextManager.Get("TextScale"), GUIStyle.SubHeadingFont);
-            Slider(layout, (0.75f, 1.25f), 51, Percentage, unsavedConfig.Graphics.TextScale, (v) => unsavedConfig.Graphics.TextScale = v);
+            Slider(layout, (0.5f, 2f), 151, Percentage, unsavedConfig.Graphics.TextScale, (v) => unsavedConfig.Graphics.TextScale = v);
+            */
             
 #if !OSX
             Spacer(layout);

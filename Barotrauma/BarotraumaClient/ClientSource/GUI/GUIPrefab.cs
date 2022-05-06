@@ -79,7 +79,7 @@ namespace Barotrauma
             };
             if (!isCJK)
             {
-                cjkFont = ExtractCjkFont(element)
+                cjkFont = ExtractCjkFont(element, font.Size)
                           ?? new ScalableFont("Content/Fonts/NotoSans/NotoSansCJKsc-Bold.otf",
                                 font.Size, GameMain.Instance.GraphicsDevice, dynamicLoading: true, isCJK: true);
                 cjkFont.ForceUpperCase = font.ForceUpperCase;
@@ -93,7 +93,7 @@ namespace Barotrauma
             cjkFont?.Dispose(); cjkFont = null;
         }
 
-        private ScalableFont ExtractCjkFont(ContentXElement element)
+        private ScalableFont ExtractCjkFont(ContentXElement element, uint size)
         {
             foreach (var subElement in element.Elements().Reverse())
             {
@@ -101,7 +101,7 @@ namespace Barotrauma
 
                 if (subElement.GetAttributeBool("iscjk", false))
                 {
-                    return new ScalableFont(subElement, GameMain.Instance.GraphicsDevice);
+                    return new ScalableFont(subElement, size, GameMain.Instance.GraphicsDevice);
                 }
             }
             return null;
@@ -133,16 +133,22 @@ namespace Barotrauma
                 }
             }
 
-            foreach (var subElement in element.Elements())
+            bool should_scale = !(element.Name.ToString().Equals("UnscaledSmallFont", StringComparison.OrdinalIgnoreCase) || element.GetAttribute("file").Value.ToString().Equals("Content/Fonts/Oswald-Bold.ttf", StringComparison.OrdinalIgnoreCase));
+            uint size = 0;
+            foreach (var subElement in element.Elements().Reverse())
             {
                 if (!subElement.Name.ToString().Equals("size", StringComparison.OrdinalIgnoreCase)) { continue; }
-                Point maxResolution = subElement.GetAttributePoint("maxresolution", new Point(int.MaxValue, int.MaxValue));
-                if (GameMain.GraphicsWidth <= maxResolution.X && GameMain.GraphicsHeight <= maxResolution.Y)
-                {
-                    return (uint)Math.Round(subElement.GetAttributeInt("size", 14) * GameSettings.CurrentConfig.Graphics.TextScale);
-                }
+                size = (uint)subElement.GetAttributeInt("size", 14);
+                break;
             }
-            return (uint)Math.Round(defaultSize * GameSettings.CurrentConfig.Graphics.TextScale);
+            if (!should_scale)
+            {
+                return size;
+            }
+            else
+            {
+                return (uint)Math.Floor(size * GameSettings.CurrentConfig.Graphics.TextScale + 0.01);
+            }
         }
 
         private bool GetFontDynamicLoading(XElement element)

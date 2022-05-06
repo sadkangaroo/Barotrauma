@@ -90,6 +90,15 @@ namespace Barotrauma
                 element.GetAttributeBool("iscjk", false))
         {
         }
+        public ScalableFont(ContentXElement element, uint size, GraphicsDevice gd = null)
+            : this(
+                element.GetAttributeContentPath("file")?.Value,
+                size,
+                gd,
+                element.GetAttributeBool("dynamicloading", false),
+                element.GetAttributeBool("iscjk", false))
+        {
+        }
 
         public ScalableFont(string filename, uint size, GraphicsDevice gd = null, bool dynamicLoading = false, bool isCJK = false)
         {

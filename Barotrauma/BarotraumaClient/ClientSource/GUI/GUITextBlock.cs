@@ -288,9 +288,10 @@ namespace Barotrauma
         /// </summary>
         public GUITextBlock(RectTransform rectT, RichString text, Color? textColor = null, GUIFont font = null, 
             Alignment textAlignment = Alignment.Left, bool wrap = false, string style = "", Color? color = null,
-            bool playerInput = false) 
+            bool playerInput = false, bool overflowclip = false) 
             : base(style, rectT)
         {
+            OverflowClip = overflowclip; 
             if (color.HasValue)
             {
                 this.color = color.Value;

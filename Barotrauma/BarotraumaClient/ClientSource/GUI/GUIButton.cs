@@ -176,12 +176,17 @@ namespace Barotrauma
             }
 
             var selfStyle = Style;
-            textBlock = new GUITextBlock(new RectTransform(Vector2.One, rectT, Anchor.Center), text, textAlignment: textAlignment, style: null)
+            var textWidth = 1.0f;
+            if (style == "GUIDropDown")
+            {
+                textWidth = 0.9f;
+            }
+            textBlock = new GUITextBlock(new RectTransform((textWidth, 1.0f), rectT, Anchor.CenterLeft), text, textAlignment: textAlignment, style: null, overflowclip: true)
             {
                 TextColor = selfStyle?.TextColor ?? Color.Black,
                 HoverTextColor = selfStyle?.HoverTextColor ?? Color.Black,
                 SelectedTextColor = selfStyle?.SelectedTextColor ?? Color.Black,
-                CanBeFocused = false
+                CanBeFocused = false,
             };
             if (rectT.Rect.Height == 0 && !text.IsNullOrEmpty())
             {

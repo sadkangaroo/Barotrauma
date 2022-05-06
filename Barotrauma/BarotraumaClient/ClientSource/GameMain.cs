@@ -90,6 +90,11 @@ namespace Barotrauma
 
         public static ParticleManager ParticleManager;
 
+        public static float ScaleToReference()
+        {
+            return GraphicsHeight / GUI.ReferenceResolution.Y;
+        }
+
         private static World world;
         public static World World
         {

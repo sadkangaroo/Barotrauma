@@ -499,9 +499,11 @@ namespace Barotrauma
             
             if (caretVisible)
             {
+                // uint padding = (uint)Math.Ceiling(Font.LineHeight * textBlock.TextScale * 0.2f);
+                uint padding = 0;
                 GUI.DrawLine(spriteBatch,
-                    new Vector2(Rect.X + (int)caretPos.X + 2, Rect.Y + caretPos.Y + 3),
-                    new Vector2(Rect.X + (int)caretPos.X + 2, Rect.Y + caretPos.Y + Font.LineHeight * textBlock.TextScale - 3),
+                    new Vector2(Rect.X + (int)caretPos.X + 2, Rect.Y + caretPos.Y + padding),
+                    new Vector2(Rect.X + (int)caretPos.X + 2, Rect.Y + caretPos.Y + Font.LineHeight * textBlock.TextScale - padding),
                     CaretColor ?? textBlock.TextColor * (textBlock.TextColor.A / 255.0f));
             }
             if (selectedCharacters > 0)

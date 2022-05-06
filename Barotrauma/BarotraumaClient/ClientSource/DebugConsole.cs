@@ -83,8 +83,9 @@ namespace Barotrauma
 
             var paddedFrame = new GUILayoutGroup(new RectTransform(new Vector2(0.95f, 0.9f), frame.RectTransform, Anchor.Center)) { RelativeSpacing = 0.01f };
 
-            var toggleText = new GUITextBlock(new RectTransform(new Vector2(1.0f, 0.05f), paddedFrame.RectTransform, Anchor.TopLeft), TextManager.Get("DebugConsoleHelpText"), Color.GreenYellow, GUIStyle.SmallFont, Alignment.CenterLeft, style: null);
+            var toggleText = new GUITextBlock(new RectTransform(new Vector2(1.0f, 0.1f), paddedFrame.RectTransform, Anchor.TopLeft), TextManager.Get("DebugConsoleHelpText"), Color.GreenYellow, GUIStyle.SmallFont, Alignment.CenterLeft, wrap: true, style: null);
 
+            /*
             var closeButton = new GUIButton(new RectTransform(new Vector2(0.025f, 1.0f), toggleText.RectTransform, Anchor.TopRight), "X", style: null)
             {
                 Color = Color.DarkRed,
@@ -99,13 +100,14 @@ namespace Barotrauma
                 textBox.Deselect();
                 return true;
             };
+            */
 
-            listBox = new GUIListBox(new RectTransform(new Point(paddedFrame.Rect.Width, paddedFrame.Rect.Height - 60), paddedFrame.RectTransform, Anchor.Center)
+            listBox = new GUIListBox(new RectTransform(new Vector2(1.0f, 0.8f), paddedFrame.RectTransform, Anchor.Center)
             {
                 IsFixedSize = false
             }, color: Color.Black * 0.9f) { ScrollBarVisible = true };
 
-            textBox = new GUITextBox(new RectTransform(new Point(paddedFrame.Rect.Width, 30), paddedFrame.RectTransform, Anchor.BottomLeft)
+            textBox = new GUITextBox(new RectTransform(new Vector2(1.0f, 0.1f), paddedFrame.RectTransform, Anchor.BottomLeft)
             {
                 IsFixedSize = false
             });
@@ -353,15 +355,16 @@ namespace Barotrauma
             {
                 CanBeFocused = false
             };
-            var textBlock = new GUITextBlock(new RectTransform(new Point(listBox.Content.Rect.Width - 170, 0), textContainer.RectTransform, Anchor.TopRight) { AbsoluteOffset = new Point(20, 0) },
+            var textBlock = new GUITextBlock(new RectTransform(new Vector2(0.63f, 0f), textContainer.RectTransform, Anchor.TopRight) { RelativeOffset = new Vector2(0.02f, 0f) },
                 command.help, textAlignment: Alignment.TopLeft, font: GUIStyle.SmallFont, wrap: true)
             {
                 CanBeFocused = false,
                 TextColor = Color.White
             };
-            textContainer.RectTransform.NonScaledSize = new Point(textContainer.RectTransform.NonScaledSize.X, textBlock.RectTransform.NonScaledSize.Y + 5);
+            // just to trigger set()
+            textContainer.RectTransform.NonScaledSize = new Point(textContainer.RectTransform.NonScaledSize.X, textBlock.RectTransform.NonScaledSize.Y);
             textBlock.SetTextPos();
-            new GUITextBlock(new RectTransform(new Point(150, textContainer.Rect.Height), textContainer.RectTransform),
+            new GUITextBlock(new RectTransform(new Vector2(0.33f, textContainer.Rect.Height), textContainer.RectTransform),
                 command.names[0], textAlignment: Alignment.TopLeft);
 
             listBox.UpdateScrollBarSize();

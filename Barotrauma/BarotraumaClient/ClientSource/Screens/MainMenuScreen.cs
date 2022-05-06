@@ -123,7 +123,7 @@ namespace Barotrauma
             FetchRemoteContent();
 #endif
 
-            float labelHeight = 0.18f;
+            float labelHeight = 0.32f;
 
 
             // === CAMPAIGN
@@ -336,7 +336,10 @@ namespace Barotrauma
 
             //debug button for quickly starting a new round
 #if DEBUG
-            new GUIButton(new RectTransform(new Point(300, 30), Frame.RectTransform, Anchor.TopRight) { AbsoluteOffset = new Point(40, 80) },
+            var bg_width = 0.25f;
+            var bg_height = 0.05f;
+            var bg_padding = 0.05f;
+            new GUIButton(new RectTransform(new Vector2(bg_width, bg_height), Frame.RectTransform, Anchor.CenterRight) { RelativeOffset = new Vector2(bg_padding, -bg_height) },
                 "Quickstart (dev)", style: "GUIButtonLarge", color: GUIStyle.Red)
             {
                 IgnoreLayoutGroups = true,
@@ -350,7 +353,7 @@ namespace Barotrauma
                     return true;
                 }
             };
-            new GUIButton(new RectTransform(new Point(300, 30), Frame.RectTransform, Anchor.TopRight) { AbsoluteOffset = new Point(40, 130) },
+            new GUIButton(new RectTransform(new Vector2(bg_width, bg_height), Frame.RectTransform, Anchor.CenterRight) { RelativeOffset = new Vector2(bg_padding, 0f) },
                 "Profiling", style: "GUIButtonLarge", color: GUIStyle.Red)
             {
                 IgnoreLayoutGroups = true,
@@ -367,7 +370,7 @@ namespace Barotrauma
                     return true;
                 }
             };
-            new GUIButton(new RectTransform(new Point(300, 30), Frame.RectTransform, Anchor.TopRight) { AbsoluteOffset = new Point(40, 180) },
+            new GUIButton(new RectTransform(new Vector2(bg_width, bg_height), Frame.RectTransform, Anchor.CenterRight) { RelativeOffset = new Vector2(bg_padding, bg_height)},
                 "Join Localhost", style: "GUIButtonLarge", color: GUIStyle.Red)
             {
                 IgnoreLayoutGroups = true,
@@ -384,19 +387,21 @@ namespace Barotrauma
                 }
             };
 #endif
-            var minButtonSize = new Point(120, 20);
-            var maxButtonSize = new Point(480, 80);
+            // var minButtonSize = new Point(120, 20);
+            // var maxButtonSize = new Point(480, 80);
 
             var relativeSize = new Vector2(0.6f, 0.65f);
-            var minSize = new Point(600, 400);
-            var maxSize = new Point(2000, 1500);
+            // var minSize = new Point(600, 400);
+            Point? minSize = null;
+            // var maxSize = new Point(2000, 1500);
+            Point? maxSize = null;
             var anchor = Anchor.CenterRight;
             var pivot = Pivot.CenterRight;
             Vector2 relativeSpacing = new Vector2(0.05f, 0.0f);
             
             menuTabs = new Dictionary<Tab, GUIFrame>();
 
-            menuTabs[Tab.Settings] = new GUIFrame(new RectTransform(new Vector2(relativeSize.X, 0.8f), GUI.Canvas, anchor, pivot, minSize, maxSize) { RelativeOffset = relativeSpacing },
+            menuTabs[Tab.Settings] = new GUIFrame(new RectTransform(relativeSize * new Vector2(1.0f, 1.23f), GUI.Canvas, anchor, pivot, minSize, maxSize) { RelativeOffset = relativeSpacing },
                 style: null);
             menuTabs[Tab.Settings].CanBeFocused = false;
 
@@ -407,7 +412,7 @@ namespace Barotrauma
 
             var hostServerScale = new Vector2(0.7f, 1.2f);
             menuTabs[Tab.HostServer] = new GUIFrame(new RectTransform(
-                Vector2.Multiply(relativeSize, hostServerScale), GUI.Canvas, anchor, pivot, minSize.Multiply(hostServerScale), maxSize.Multiply(hostServerScale))
+                Vector2.Multiply(relativeSize, hostServerScale), GUI.Canvas, anchor, pivot, minSize, maxSize)
             { RelativeOffset = relativeSpacing });
 
             CreateHostServerFields();

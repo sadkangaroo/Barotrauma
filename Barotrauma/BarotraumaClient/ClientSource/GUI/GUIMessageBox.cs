@@ -12,9 +12,10 @@ namespace Barotrauma
     {
         #warning TODO: change this to List<GUIMessageBox> and fix incorrect uses of this list
         public readonly static List<GUIComponent> MessageBoxes = new List<GUIComponent>();
+
         private static int DefaultWidth
         {
-            get { return Math.Max(400, (int)(400 * (GameMain.GraphicsWidth / GUI.ReferenceResolution.X))); }
+            get { return (int)(400 * GameMain.ScaleToReference()); }
         }
 
         private float inGameCloseTimer = 0.0f;
@@ -159,13 +160,14 @@ namespace Barotrauma
 
                 int buttonSize = 35;
                 var buttonStyle = GUIStyle.GetComponentStyle("GUIButton");
-                if (buttonStyle != null && buttonStyle.Height.HasValue)
-                {
-                    buttonSize = buttonStyle.Height.Value;
-                }
+                // if (buttonStyle != null && buttonStyle.Height.HasValue)
+                // {
+                   // buttonSize = buttonStyle.Height.Value;
+                // }
+                buttonSize = (int)(buttonSize * GameMain.ScaleToReference());
 
                 buttonContainer.RectTransform.NonScaledSize = buttonContainer.RectTransform.MinSize = buttonContainer.RectTransform.MaxSize = 
-                    new Point(buttonContainer.Rect.Width, (int)((buttonSize + 5) * buttons.Length));
+                    new Point(buttonContainer.Rect.Width, (buttonSize * buttons.Length));
                 buttonContainer.RectTransform.IsFixedSize = true;
 
                 if (height == 0)

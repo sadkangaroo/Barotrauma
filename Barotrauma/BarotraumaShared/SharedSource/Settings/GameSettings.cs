@@ -175,9 +175,9 @@ namespace Barotrauma
                     gfxSettings.FrameLimit = 300;
                     gfxSettings.VSync = true;
 #if DEBUG
-                    gfxSettings.DisplayMode = WindowMode.Windowed;
+                    gfxSettings.DisplayMode = WindowMode.Fullscreen;
 #else
-                    gfxSettings.DisplayMode = WindowMode.BorderlessWindowed;
+                    gfxSettings.DisplayMode = WindowMode.Fullscreen;
 #endif
                     return gfxSettings;
                 }
@@ -453,8 +453,9 @@ namespace Barotrauma
             }
         }
 
-        public static void SetCurrentConfig(in Config newConfig)
+        public static void SetCurrentConfig(Config newConfig)
         {
+            newConfig.Graphics.TextScale = newConfig.Graphics.Height / 1080.0f;
             bool setGraphicsMode =
                 currentConfig.Graphics.Width != newConfig.Graphics.Width
                 || currentConfig.Graphics.Height != newConfig.Graphics.Height
@@ -471,6 +472,20 @@ namespace Barotrauma
             currentConfig = newConfig;
 
 #if CLIENT
+            if (languageChanged) 
+            { 
+                TextManager.ClearCache(); 
+                GameMain.Instance.ApplyGraphicsSettings();
+            }
+
+            if (textScaleChanged)
+            {
+                foreach (var font in GUIStyle.Fonts.Values)
+                {
+                    font.Prefabs.ForEach(p => p.LoadFont());
+                }
+            }
+            
             if (setGraphicsMode)
             {
                 GameMain.Instance.ApplyGraphicsSettings();
@@ -485,18 +500,8 @@ namespace Barotrauma
             {
                 VoipCapture.ChangeCaptureDevice(currentConfig.Audio.VoiceCaptureDevice);
             }
-
-            if (textScaleChanged)
-            {
-                foreach (var font in GUIStyle.Fonts.Values)
-                {
-                    font.Prefabs.ForEach(p => p.LoadFont());
-                }
-            }
-            
             GameMain.SoundManager?.ApplySettings();
 #endif
-            if (languageChanged) { TextManager.ClearCache(); }
         }
 
         public static void SaveCurrentConfig()

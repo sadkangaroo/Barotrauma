@@ -166,7 +166,7 @@ namespace Barotrauma
                 }
             }
 
-            GetSize(element);
+            // GetSize(element);
         }
 
         public Sprite GetDefaultSprite()

@@ -173,10 +173,8 @@ namespace Barotrauma
             button = new GUIButton(new RectTransform(Vector2.One, rectT), text, textAlignment, style: "GUIDropDown")
             {
                 OnClicked = OnClicked,
-                TextBlock = { OverflowClip = true }
             };
             GUIStyle.Apply(button, "", this);
-            button.TextBlock.SetTextPos();
 
             Anchor listAnchor = dropAbove ? Anchor.TopCenter : Anchor.BottomCenter;
             Pivot listPivot = dropAbove ? Pivot.BottomCenter : Pivot.TopCenter;
