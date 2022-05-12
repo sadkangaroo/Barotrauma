@@ -187,7 +187,7 @@ namespace Barotrauma
                 Range = range,
                 BarScrollValue = currentValue,
                 Step = 1.0f / (float)(steps - 1),
-                BarSize = 1.0f / 50
+                BarSize = 1.0f / steps
             };
             if (tooltip != null)
             {
@@ -663,7 +663,7 @@ namespace Barotrauma
             Tickbox(layout, TextManager.Get("DisableInGameHints"), TextManager.Get("DisableInGameHintsTooltip"), unsavedConfig.DisableInGameHints, (v) => unsavedConfig.DisableInGameHints = v);
             Spacer(layout);
             var resetInGameHintsButton =
-                new GUIButton(new RectTransform(new Vector2(1.0f, 0.04f), layout.RectTransform),
+                new GUIButton(new RectTransform(new Vector2(1.0f, 1.0f), layout.RectTransform),
                     TextManager.Get("ResetInGameHints"), style: "GUIButtonSmall")
                 {
                     OnClicked = (button, o) =>

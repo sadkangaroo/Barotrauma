@@ -138,8 +138,12 @@ namespace Barotrauma
             foreach (var subElement in element.Elements().Reverse())
             {
                 if (!subElement.Name.ToString().Equals("size", StringComparison.OrdinalIgnoreCase)) { continue; }
-                size = (uint)subElement.GetAttributeInt("size", 14);
-                break;
+                Point maxResolution = subElement.GetAttributePoint("maxresolution", new Point(int.MaxValue, int.MaxValue));
+                if (int.MaxValue == maxResolution.X && int.MaxValue == maxResolution.Y)
+                {
+                    size = (uint)subElement.GetAttributeInt("size", 14);
+                    break;
+                }
             }
             if (!should_scale)
             {

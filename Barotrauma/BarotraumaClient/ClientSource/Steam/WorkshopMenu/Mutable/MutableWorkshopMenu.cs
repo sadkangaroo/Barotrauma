@@ -271,7 +271,7 @@ namespace Barotrauma.Steam
                 new GUILayoutGroup(new RectTransform(Vector2.One, outerContainer.Content.RectTransform), childAnchor: Anchor.TopCenter);
             mainLayout.RectTransform.SetAsFirstChild();
 
-            var (topLeft, _, topRight) = CreateSidebars(mainLayout, centerWidth: 0.05f, leftWidth: 0.475f, rightWidth: 0.475f, height: 0.13f);
+            var (topLeft, _, topRight) = CreateSidebars(mainLayout, centerWidth: 0.05f, leftWidth: 0.475f, rightWidth: 0.475f, height: 0.18f);
             topLeft.Stretch = true;
             Label(topLeft, TextManager.Get("enabledcore"), GUIStyle.SubHeadingFont, heightScale: 1.0f);
             enabledCoreDropdown = Dropdown<CorePackage>(topLeft,
@@ -279,7 +279,7 @@ namespace Barotrauma.Steam
                 ContentPackageManager.CorePackages.ToArray(),
                 ContentPackageManager.EnabledPackages.Core!,
                 (p) => { },
-                heightScale: 1.0f);
+                heightScale: 1.0f / 13.0f);
             Label(topLeft, "", GUIStyle.SubHeadingFont, heightScale: 1.0f);
             topRight.ChildAnchor = Anchor.CenterLeft;
 
@@ -324,7 +324,7 @@ namespace Barotrauma.Steam
                 };
             padTopRight(width: 0.1f);
 
-            var (left, center, right) = CreateSidebars(mainLayout, centerWidth: 0.05f, leftWidth: 0.475f, rightWidth: 0.475f, height: 0.8f);
+            var (left, center, right) = CreateSidebars(mainLayout, centerWidth: 0.05f, leftWidth: 0.475f, rightWidth: 0.475f, height: 0.7f);
             right.ChildAnchor = Anchor.TopRight;
 
             //enabled mods

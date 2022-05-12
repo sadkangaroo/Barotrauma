@@ -302,7 +302,7 @@ namespace Barotrauma
             CreateUI();
         }
 
-        private void CreateUI()
+        public void CreateUI()
         {
             TopPanel = new GUIFrame(new RectTransform(new Vector2(GUI.Canvas.RelativeSize.X, 0.03f), GUI.Canvas) { MinSize = new Point(0, 35) }, "GUIFrameTop");
 
@@ -1056,7 +1056,7 @@ namespace Barotrauma
             backedUpSubInfo = null;
         }
 
-        private void UpdateEntityList()
+        public void UpdateEntityList()
         {
             categorizedEntityList.Content.ClearChildren();
             allEntityList.Content.ClearChildren();

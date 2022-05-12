@@ -186,7 +186,7 @@ namespace Barotrauma
                 TextColor = selfStyle?.TextColor ?? Color.Black,
                 HoverTextColor = selfStyle?.HoverTextColor ?? Color.Black,
                 SelectedTextColor = selfStyle?.SelectedTextColor ?? Color.Black,
-                CanBeFocused = false,
+                CanBeFocused = false
             };
             if (rectT.Rect.Height == 0 && !text.IsNullOrEmpty())
             {

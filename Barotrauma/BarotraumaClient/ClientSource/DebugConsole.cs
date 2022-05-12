@@ -3218,6 +3218,22 @@ namespace Barotrauma
                     NewMessage("Level seed: " + Level.Loaded.Seed);
                 }
             });
+
+            commands.Add(new Command("init", "Reinitialize the debug console.", (string[] args) =>
+            {
+                Init();
+                InitProjectSpecific();
+                NewMessage("Debug console reinitialized.");
+                textBox.Select();
+                textBox.AddToGUIUpdateList();
+            }));
+
+            commands.Add(new Command("reloadsubeditor", "Reload the submarine editor.", (string[] args) =>
+            {
+                GameMain.SubEditorScreen.CreateUI();
+                GameMain.SubEditorScreen.UpdateEntityList();
+                NewMessage("Submarine editor reloaded.");
+            }));
         }
 
         private static void ReloadWearables(Character character, int variant = 0)

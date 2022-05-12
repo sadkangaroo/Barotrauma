@@ -166,7 +166,7 @@ namespace Barotrauma
                 }
             }
 
-            // GetSize(element);
+            GetSize(element);
         }
 
         public Sprite GetDefaultSprite()
@@ -185,7 +185,8 @@ namespace Barotrauma
             {
                 if (!subElement.Name.ToString().Equals("size", StringComparison.OrdinalIgnoreCase)) { continue; }
                 Point maxResolution = subElement.GetAttributePoint("maxresolution", new Point(int.MaxValue, int.MaxValue));
-                if (GameMain.GraphicsWidth <= maxResolution.X && GameMain.GraphicsHeight <= maxResolution.Y)
+                //if (GameMain.GraphicsWidth <= maxResolution.X && GameMain.GraphicsHeight <= maxResolution.Y)
+                if (int.MaxValue == maxResolution.X && int.MaxValue == maxResolution.Y)
                 {
                     size = new Point(
                         subElement.GetAttributeInt("width", 0), 
@@ -193,8 +194,19 @@ namespace Barotrauma
                     break;
                 }
             }
-            if (size.X > 0) { Width = size.X; }
-            if (size.Y > 0) { Height = size.Y; }
+            var style_scale = 1.0f;
+            if (element.Name.ToString().Equals("GUITickBox", StringComparison.OrdinalIgnoreCase)) 
+            {
+                style_scale = 0.5f;
+            }
+            if (size.X > 0) 
+            { 
+                Width = (int)Math.Ceiling(size.X * GameSettings.CurrentConfig.Graphics.TextScale * style_scale - 0.01); 
+            }
+            if (size.Y > 0) 
+            { 
+                Height = (int)Math.Ceiling(size.Y * GameSettings.CurrentConfig.Graphics.TextScale * style_scale - 0.01); 
+            }
         }
 
         public override void Dispose() { }

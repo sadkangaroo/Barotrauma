@@ -175,9 +175,9 @@ namespace Barotrauma
                     gfxSettings.FrameLimit = 300;
                     gfxSettings.VSync = true;
 #if DEBUG
-                    gfxSettings.DisplayMode = WindowMode.Fullscreen;
+                    gfxSettings.DisplayMode = WindowMode.Windowed;
 #else
-                    gfxSettings.DisplayMode = WindowMode.Fullscreen;
+                    gfxSettings.DisplayMode = WindowMode.BorderlessWindowed;
 #endif
                     return gfxSettings;
                 }

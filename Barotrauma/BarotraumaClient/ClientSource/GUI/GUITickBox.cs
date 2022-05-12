@@ -11,6 +11,8 @@ namespace Barotrauma
         private GUIFrame box;
         private GUITextBlock text;
 
+        public string StyleName { get; private set; }
+
         public delegate bool OnSelectedHandler(GUITickBox obj);
         public OnSelectedHandler OnSelected;
 
@@ -131,6 +133,7 @@ namespace Barotrauma
 
         public GUITickBox(RectTransform rectT, LocalizedString label, GUIFont font = null, string style = "") : base(null, rectT)
         {
+            StyleName = style == "" ? "GUITickBox" : style;
             CanBeFocused = true;
             HoverCursor = CursorState.Hand;
 
@@ -145,7 +148,7 @@ namespace Barotrauma
                 SelectedColor = Color.DarkGray,
                 CanBeFocused = false
             };
-            GUIStyle.Apply(box, style == "" ? "GUITickBox" : style);
+            GUIStyle.Apply(box, StyleName);
             if (box.RectTransform.MinSize.Y > 0)
             {
                 RectTransform.MinSize = box.RectTransform.MinSize;
@@ -166,6 +169,19 @@ namespace Barotrauma
 
             rectT.ScaleChanged += ResizeBox;
             rectT.SizeChanged += ResizeBox;
+            GameMain.Instance.ResolutionChanged += () =>
+            {
+                GUIStyle.Apply(box, StyleName);
+                if (box.RectTransform.MinSize.Y > 0)
+                {
+                    RectTransform.MinSize = box.RectTransform.MinSize;
+                    RectTransform.MaxSize = box.RectTransform.MaxSize;
+                    RectTransform.Resize(new Point(RectTransform.NonScaledSize.X, RectTransform.MinSize.Y));
+                    box.RectTransform.MinSize = new Point(box.RectTransform.MinSize.Y);
+                    box.RectTransform.Resize(box.RectTransform.MinSize);
+                }
+                ResizeBox();
+            };
         }
         
         public void SetRadioButtonGroup(GUIRadioButtonGroup rbg)
@@ -173,7 +189,7 @@ namespace Barotrauma
             radioButtonGroup = rbg;
         }
 
-        private void ResizeBox()
+        public void ResizeBox()
         {
             Vector2 textBlockScale = new Vector2(Math.Max(Rect.Width - box.Rect.Width, 0.0f) / Math.Max(Rect.Width, 1.0f), 1.0f);
             text.RectTransform.RelativeSize = textBlockScale;

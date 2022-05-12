@@ -411,6 +411,21 @@ namespace Barotrauma
             CanBeFocused = true;
 
             if (style != null) { GUIStyle.Apply(this, style); }
+            GameMain.Instance.ResolutionChanged += () =>
+            {
+                if (Style != null)
+                {
+                    Style.GetSize(Style.Element);
+                    ApplyStyle(Style);
+                }
+                if (GetType().Equals(typeof(GUITickBox)))
+                {
+                    ((GUITickBox)this).ResizeBox();
+                }
+                if (Style != null)
+                {
+                }
+            };
         }
 
         protected GUIComponent(string style)
@@ -421,6 +436,14 @@ namespace Barotrauma
             CanBeFocused = true;
 
             if (style != null) { GUIStyle.Apply(this, style); }
+            GameMain.Instance.ResolutionChanged += () => 
+            { 
+                if (Style != null)
+                {
+                    Style.GetSize(Style.Element); 
+                    ApplyStyle(Style); 
+                }
+            };
         }
 
         #region Updating
