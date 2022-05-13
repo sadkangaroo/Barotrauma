@@ -84,13 +84,6 @@ namespace Barotrauma
                 }
             };
 
-            new GUIImage(new RectTransform(new Vector2(0.4f, 0.25f), Frame.RectTransform, Anchor.BottomRight)
-            { RelativeOffset = new Vector2(0.08f, 0.05f), AbsoluteOffset = new Point(-8, -8) },
-                style: "TitleText")
-            {
-                Color = Color.Black * 0.5f,
-                CanBeFocused = false
-            };
             titleText = new GUIImage(new RectTransform(new Vector2(0.4f, 0.25f), Frame.RectTransform, Anchor.BottomRight)
             { RelativeOffset = new Vector2(0.08f, 0.05f) },
                 style: "TitleText");
@@ -340,7 +333,7 @@ namespace Barotrauma
             var bg_height = 0.05f;
             var bg_padding = 0.05f;
             new GUIButton(new RectTransform(new Vector2(bg_width, bg_height), Frame.RectTransform, Anchor.CenterRight) { RelativeOffset = new Vector2(bg_padding, -bg_height) },
-                "Quickstart (dev)", style: "GUIButtonLarge", color: GUIStyle.Red)
+                "Quickstart (dev)", style: "GUIButtonLarge")
             {
                 IgnoreLayoutGroups = true,
                 UserData = Tab.Empty,
@@ -354,7 +347,7 @@ namespace Barotrauma
                 }
             };
             new GUIButton(new RectTransform(new Vector2(bg_width, bg_height), Frame.RectTransform, Anchor.CenterRight) { RelativeOffset = new Vector2(bg_padding, 0f) },
-                "Profiling", style: "GUIButtonLarge", color: GUIStyle.Red)
+                "Profiling", style: "GUIButtonLarge")
             {
                 IgnoreLayoutGroups = true,
                 UserData = Tab.Empty,
@@ -371,7 +364,7 @@ namespace Barotrauma
                 }
             };
             new GUIButton(new RectTransform(new Vector2(bg_width, bg_height), Frame.RectTransform, Anchor.CenterRight) { RelativeOffset = new Vector2(bg_padding, bg_height)},
-                "Join Localhost", style: "GUIButtonLarge", color: GUIStyle.Red)
+                "Join Localhost", style: "GUIButtonLarge")
             {
                 IgnoreLayoutGroups = true,
                 UserData = Tab.Empty,
@@ -401,7 +394,7 @@ namespace Barotrauma
             
             menuTabs = new Dictionary<Tab, GUIFrame>();
 
-            menuTabs[Tab.Settings] = new GUIFrame(new RectTransform(relativeSize * new Vector2(1.0f, 1.23f), GUI.Canvas, anchor, pivot, minSize, maxSize) { RelativeOffset = relativeSpacing },
+            menuTabs[Tab.Settings] = new GUIFrame(new RectTransform(new Vector2(relativeSize.X, 0.8f), GUI.Canvas, anchor, pivot, minSize, maxSize) { RelativeOffset = relativeSpacing },
                 style: null);
             menuTabs[Tab.Settings].CanBeFocused = false;
 

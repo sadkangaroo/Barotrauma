@@ -145,7 +145,7 @@ namespace Barotrauma
             // Resize all children to the size of their text
             foreach (GUITextBlock block in children.Where(c => c is GUITextBlock).Cast<GUITextBlock>())
             {
-                block.RectTransform.NonScaledSize = new Point((int) (block.TextSize.X + (block.Padding.X + block.Padding.Z)), (int) (18 * GUI.Scale));
+                block.RectTransform.NonScaledSize = new Point((int) (block.TextSize.X + (block.Padding.X + block.Padding.Z)), (int)(GUIStyle.SmallFont.Size * 1.8));
             }
 
             int largestWidth = children.Max(c => c.Rect.Width + horizontalPadding);

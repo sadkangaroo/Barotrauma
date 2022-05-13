@@ -112,7 +112,7 @@ namespace Barotrauma.Steam
             searchRectT.RelativeSize = (width, searchRectT.RelativeSize.Y);
             var searchHolder = new GUIFrame(searchRectT, style: null);
             var searchBox = new GUITextBox(new RectTransform(Vector2.One, searchHolder.RectTransform), "", createClearButton: true);
-            var searchTitle = new GUITextBlock(new RectTransform(Vector2.One, searchHolder.RectTransform) {Anchor = Anchor.TopLeft},
+            var searchTitle = new GUITextBlock(new RectTransform(Vector2.One, searchBox.RectTransform) {Anchor = Anchor.TopLeft},
                 textColor: Color.DarkGray * 0.6f,
                 text: TextManager.Get("Search") + "...",
                 textAlignment: Alignment.CenterLeft)

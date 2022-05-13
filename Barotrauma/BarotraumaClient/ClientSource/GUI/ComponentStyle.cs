@@ -194,10 +194,10 @@ namespace Barotrauma
                     break;
                 }
             }
-            var style_scale = 1.0f;
-            if (element.Name.ToString().Equals("GUITickBox", StringComparison.OrdinalIgnoreCase)) 
+            var style_scale = 0.65f;
+            if (element.Name.ToString().Equals("GUIButtonSmall", StringComparison.OrdinalIgnoreCase)) 
             {
-                style_scale = 0.5f;
+                style_scale = 1.0f;
             }
             if (size.X > 0) 
             { 

@@ -22,6 +22,7 @@ namespace Barotrauma
         private readonly GUIFrame frame;
         private readonly GUITextBlock textBlock;
         private readonly GUIImage icon;
+        private readonly GUIButton clearButton;
 
         public Func<string, string> textFilterFunction;
 
@@ -259,9 +260,9 @@ namespace Barotrauma
             CanBeFocused = true;
 
             this.color = color ?? Color.White;
-            frame = new GUIFrame(new RectTransform(Vector2.One, rectT, Anchor.Center), style, color);
+            frame = new GUIFrame(new RectTransform(Vector2.One, rectT, Anchor.Center), style);
             GUIStyle.Apply(frame, style == "" ? "GUITextBox" : style);
-            textBlock = new GUITextBlock(new RectTransform(Vector2.One, frame.RectTransform, Anchor.CenterLeft), text ?? "", textColor, font, textAlignment, wrap, playerInput: true);
+            textBlock = new GUITextBlock(new RectTransform(Vector2.One, frame.RectTransform, Anchor.CenterLeft), text ?? "", textColor, font, textAlignment, wrap, playerInput: true, overflowclip: true);
             GUIStyle.Apply(textBlock, "", this);
             if (font != null) { textBlock.Font = font; }
             CaretEnabled = true;
@@ -269,10 +270,9 @@ namespace Barotrauma
 
             caretAndSelectionRenderer = new GUICustomComponent(new RectTransform(Vector2.One, frame.RectTransform), onDraw: DrawCaretAndSelection);
 
-            int clearButtonWidth = 0;
             if (createClearButton)
             {
-                var clearButton = new GUIButton(new RectTransform(new Vector2(0.6f, 0.6f), frame.RectTransform, Anchor.CenterRight, scaleBasis: ScaleBasis.BothHeight) { AbsoluteOffset = new Point(5, 0) }, style: "GUICancelButton")
+                clearButton = new GUIButton(new RectTransform(new Vector2(0.6f, 0.6f), frame.RectTransform, Anchor.CenterRight, scaleBasis: ScaleBasis.BothHeight) { AbsoluteOffset = new Point((int)(0.5 * frame.Rect.Height), 0) }, style: "GUICancelButton")
                 {
                     OnClicked = (bt, userdata) =>
                     {
@@ -281,29 +281,40 @@ namespace Barotrauma
                         return true;
                     }
                 };
-                textBlock.RectTransform.MaxSize = new Point(frame.Rect.Width - clearButton.Rect.Height - clearButton.RectTransform.AbsoluteOffset.X * 2, int.MaxValue);
-                clearButtonWidth = (int)(clearButton.Rect.Width * 1.2f);
             }
 
             var selfStyle = Style;
             if (selfStyle != null && selfStyle.ChildStyles.ContainsKey("textboxicon".ToIdentifier()) && createPenIcon)
             {
-                icon = new GUIImage(new RectTransform(new Vector2(0.6f, 0.6f), frame.RectTransform, Anchor.CenterRight, scaleBasis: ScaleBasis.BothHeight) { AbsoluteOffset = new Point(5 + clearButtonWidth, 0) }, null, scaleToFit: true);
+                icon = new GUIImage(new RectTransform(new Vector2(0.6f, 0.6f), frame.RectTransform, Anchor.CenterRight, scaleBasis: ScaleBasis.BothHeight) { AbsoluteOffset = new Point((int)(1.5 * frame.Rect.Height), 0) }, null, scaleToFit: true);
                 icon.ApplyStyle(this.Style.ChildStyles["textboxicon".ToIdentifier()]);
-                textBlock.RectTransform.MaxSize = new Point(frame.Rect.Width - icon.Rect.Height - clearButtonWidth - icon.RectTransform.AbsoluteOffset.X * 2, int.MaxValue);
             }
+
+            textBlock.RectTransform.MaxSize = new Point(frame.Rect.Width - frame.Rect.Height * (Convert.ToInt32(clearButton != null) + Convert.ToInt32(icon != null)), int.MaxValue);
+
             Font = textBlock.Font;
             
             Enabled = true;
 
             rectT.SizeChanged += () => 
             {
-                if (icon != null) { textBlock.RectTransform.MaxSize = new Point(frame.Rect.Width - icon.Rect.Height - icon.RectTransform.AbsoluteOffset.X * 2, int.MaxValue); }
+                if (clearButton != null)
+                {
+                    clearButton.RectTransform.AbsoluteOffset = new Point((int)(0.5 * frame.Rect.Height), 0);
+                }
+                if (icon != null)
+                {
+                    icon.RectTransform.AbsoluteOffset = new Point((int)(1.5 * frame.Rect.Height), 0);
+                }
+            };
+            rectT.SizeChanged += () => 
+            {
+                textBlock.RectTransform.MaxSize = new Point(frame.Rect.Width - (int)(frame.Rect.Height * (0.5 + Convert.ToInt32(clearButton != null) + Convert.ToInt32(icon != null))), int.MaxValue);
                 caretPosDirty = true; 
             };
             rectT.ScaleChanged += () =>
             {
-                if (icon != null) { textBlock.RectTransform.MaxSize = new Point(frame.Rect.Width - icon.Rect.Height - icon.RectTransform.AbsoluteOffset.X * 2, int.MaxValue); }
+                textBlock.RectTransform.MaxSize = new Point(frame.Rect.Width - frame.Rect.Height * (int)((0.5 + Convert.ToInt32(clearButton != null) + Convert.ToInt32(icon != null))), int.MaxValue);
                 caretPosDirty = true; 
             };
         }

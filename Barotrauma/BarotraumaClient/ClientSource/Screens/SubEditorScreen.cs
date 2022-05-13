@@ -434,7 +434,7 @@ namespace Barotrauma
             new GUIFrame(new RectTransform(new Vector2(0.01f, 0.9f), paddedTopPanel.RectTransform), style: "VerticalLine");
 
             subNameLabel = new GUITextBlock(new RectTransform(new Vector2(0.3f, 0.9f), paddedTopPanel.RectTransform, Anchor.CenterLeft),
-                TextManager.Get("unspecifiedsubfilename"), font: GUIStyle.LargeFont, textAlignment: Alignment.CenterLeft);
+                TextManager.Get("unspecifiedsubfilename"), font: GUIStyle.Font, textAlignment: Alignment.CenterLeft);
 
             linkedSubBox = new GUIDropDown(new RectTransform(new Vector2(0.15f, 0.9f), paddedTopPanel.RectTransform),
                 TextManager.Get("AddSubButton"), elementCount: 20)
