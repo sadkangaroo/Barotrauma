@@ -145,7 +145,7 @@ namespace Barotrauma
             // Resize all children to the size of their text
             foreach (GUITextBlock block in children.Where(c => c is GUITextBlock).Cast<GUITextBlock>())
             {
-                block.RectTransform.NonScaledSize = new Point((int) (block.TextSize.X + (block.Padding.X + block.Padding.Z)), (int)(GUIStyle.SmallFont.Size * 1.8));
+                block.RectTransform.NonScaledSize = new Point((int) (block.TextSize.X + (block.Padding.X + block.Padding.Z)), (int)(block.TextSize.Y));
             }
 
             int largestWidth = children.Max(c => c.Rect.Width + horizontalPadding);
@@ -169,8 +169,9 @@ namespace Barotrauma
 
             // the cropped size of the option list
             Point newSize = new Point(largestWidth, children.Sum(c => c.Rect.Height) + verticalPadding);
-            // resize the menu itself taking into account the option menus relative Y size
-            RectTransform.NonScaledSize = new Point(newSize.X, (int) (newSize.Y / optionList.RectTransform.RelativeSize.Y));
+            //resize the menu itself taking into account the option menus relative Y size
+            RectTransform.NonScaledSize = new Point(newSize.X, newSize.Y + (HeaderLabel != null ? HeaderLabel.Rect.Height : 0));
+            DebugConsole.NewMessage(optionList.RectTransform.RelativeSize.Y.ToString());
             optionList.RectTransform.NonScaledSize = newSize;
 
             // move the context menu if it would go outside of screen

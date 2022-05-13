@@ -300,6 +300,7 @@ namespace Barotrauma
             Hull.ShowHulls = false;
             Gap.ShowGaps = false;
             CreateUI();
+            GameMain.Instance.ResolutionChanged += () => { UpdateEntityList(); };
         }
 
         public void CreateUI()
