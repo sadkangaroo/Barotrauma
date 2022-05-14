@@ -129,30 +129,40 @@ namespace Barotrauma
                 if (GameSettings.CurrentConfig.Language == subElement.GetAttributeIdentifier("language", "").ToLanguageIdentifier())
                 {
                     uint overrideFontSize = GetFontSize(subElement, 0);
-                    if (overrideFontSize > 0) { return (uint)Math.Round(overrideFontSize * GameSettings.CurrentConfig.Graphics.TextScale); }
+                    if (overrideFontSize > 0) 
+                    { 
+                        return (uint)Math.Floor(overrideFontSize * GUI.Scale + 0.01);
+                    }
                 }
             }
 
-            bool should_scale = !(element.Name.ToString().Equals("UnscaledSmallFont", StringComparison.OrdinalIgnoreCase) || element.GetAttribute("file").Value.ToString().Equals("Content/Fonts/Oswald-Bold.ttf", StringComparison.OrdinalIgnoreCase));
-            uint size = 0;
-            foreach (var subElement in element.Elements().Reverse())
+            foreach (var subElement in element.Elements())
+            {
+                if (!subElement.Name.ToString().Equals("size", StringComparison.OrdinalIgnoreCase)) { continue; }
+                Point maxResolution = subElement.GetAttributePoint("maxresolution", new Point(int.MaxValue, int.MaxValue));
+                if (1920 == maxResolution.X && 1080 == maxResolution.Y)
+                {
+                    uint size = (uint)subElement.GetAttributeInt("size", 14);
+                    if (element.GetAttribute("file").Value.ToString().Equals("Content/Fonts/Oswald-Bold.ttf", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return size;
+                    }
+                    else
+                    {
+                        return (uint)Math.Floor(size * GUI.Scale + 0.01);
+                    }
+                }
+            }
+            foreach (var subElement in element.Elements())
             {
                 if (!subElement.Name.ToString().Equals("size", StringComparison.OrdinalIgnoreCase)) { continue; }
                 Point maxResolution = subElement.GetAttributePoint("maxresolution", new Point(int.MaxValue, int.MaxValue));
                 if (int.MaxValue == maxResolution.X && int.MaxValue == maxResolution.Y)
                 {
-                    size = (uint)subElement.GetAttributeInt("size", 14);
-                    break;
+                    return (uint)subElement.GetAttributeInt("size", 14);
                 }
             }
-            if (!should_scale)
-            {
-                return size;
-            }
-            else
-            {
-                return (uint)Math.Floor(size * GameSettings.CurrentConfig.Graphics.TextScale + 0.01);
-            }
+            return 0;
         }
 
         private bool GetFontDynamicLoading(XElement element)

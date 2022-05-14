@@ -40,7 +40,7 @@ namespace Barotrauma
         }
 
         private GUILayoutGroup topLeftButtonGroup;
-        private GUIButton crewListButton, commandButton, tabMenuButton;
+        private GUIButton crewListButton, commandButton, tabMenuButton, chatButton;
         private GUIImage talentPointNotification;
 
         private GUIComponent respawnInfoFrame, respawnButtonContainer;
@@ -53,7 +53,7 @@ namespace Barotrauma
             {
                 topLeftButtonGroup.RectTransform.Parent = null;
                 topLeftButtonGroup = null;
-                crewListButton = commandButton = tabMenuButton = null;
+                crewListButton = commandButton = tabMenuButton = chatButton = null;
             }
             topLeftButtonGroup = new GUILayoutGroup(HUDLayoutSettings.ToRectTransform(HUDLayoutSettings.ButtonAreaTop, GUI.Canvas), isHorizontal: true, childAnchor: Anchor.CenterLeft)
             {
@@ -93,6 +93,21 @@ namespace Barotrauma
                 ToolTip = TextManager.GetWithVariable("hudbutton.tabmenu", "[key]", GameSettings.CurrentConfig.KeyMap.KeyBindText(InputType.InfoTab)),
                 OnClicked = (button, userData) => ToggleTabMenu()
             };
+            var chatBox = CrewManager.ChatBox ?? GameMain.Client?.ChatBox;
+            if (chatBox != null)
+            {
+                chatBox.ToggleButton = new GUIButton(new RectTransform(buttonSize, parent: topLeftButtonGroup.RectTransform), style: "ChatToggleButton")
+                {
+                    ToolTip = TextManager.Get("chat"),
+                    ClampMouseRectToParent = false
+                };
+                chatBox.ToggleButton.OnClicked += (GUIButton btn, object userdata) =>
+                {
+                    chatBox.ToggleOpen = !chatBox.ToggleOpen;
+                    chatBox.CloseAfterMessageSent = false;
+                    return true;
+                };
+            }
 
             talentPointNotification = CreateTalentIconNotification(tabMenuButton);
 

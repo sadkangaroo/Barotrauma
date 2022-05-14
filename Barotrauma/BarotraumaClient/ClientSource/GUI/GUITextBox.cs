@@ -286,7 +286,7 @@ namespace Barotrauma
             var selfStyle = Style;
             if (selfStyle != null && selfStyle.ChildStyles.ContainsKey("textboxicon".ToIdentifier()) && createPenIcon)
             {
-                icon = new GUIImage(new RectTransform(new Vector2(0.6f, 0.6f), frame.RectTransform, Anchor.CenterRight, scaleBasis: ScaleBasis.BothHeight) { AbsoluteOffset = new Point((int)(1.5 * frame.Rect.Height), 0) }, null, scaleToFit: true);
+                icon = new GUIImage(new RectTransform(new Vector2(0.6f, 0.6f), frame.RectTransform, Anchor.CenterRight, scaleBasis: ScaleBasis.BothHeight) { AbsoluteOffset = new Point((int)((0.5 + Convert.ToInt32(clearButton != null)) * frame.Rect.Height), 0) }, null, scaleToFit: true);
                 icon.ApplyStyle(this.Style.ChildStyles["textboxicon".ToIdentifier()]);
             }
 
@@ -304,7 +304,7 @@ namespace Barotrauma
                 }
                 if (icon != null)
                 {
-                    icon.RectTransform.AbsoluteOffset = new Point((int)(1.5 * frame.Rect.Height), 0);
+                    icon.RectTransform.AbsoluteOffset = new Point((int)((0.5 + Convert.ToInt32(clearButton != null)) * frame.Rect.Height), 0);
                 }
             };
             rectT.SizeChanged += () => 

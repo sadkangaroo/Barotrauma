@@ -132,7 +132,7 @@ namespace Barotrauma
             MessageAreaTop = new Rectangle((GameMain.GraphicsWidth - messageAreaWidth) / 2, ButtonAreaTop.Bottom + ButtonAreaTop.Height, messageAreaWidth, ButtonAreaTop.Height);
 
             bool isFourByThree = GUI.IsFourByThree();
-            int chatBoxWidth = !isFourByThree ? (int)(475 * GUI.Scale) : (int)(375 * GUI.Scale);
+            int chatBoxWidth = (int)(200 * GUI.Scale * GUI.HorizontalAspectRatio);
             int chatBoxHeight = (int)Math.Max(GameMain.GraphicsHeight * 0.25f, 150);
             ChatBoxArea = new Rectangle(Padding, GameMain.GraphicsHeight - Padding - chatBoxHeight, chatBoxWidth, chatBoxHeight);
 

@@ -86,9 +86,10 @@ namespace Barotrauma
         private static readonly object mutex = new object();
 
         public static readonly Vector2 ReferenceResolution = new Vector2(1920f, 1080f);
-        public static float Scale => (UIWidth / ReferenceResolution.X + GameMain.GraphicsHeight / ReferenceResolution.Y) / 2.0f * GameSettings.CurrentConfig.Graphics.HUDScale;
-        public static float xScale => UIWidth / ReferenceResolution.X * GameSettings.CurrentConfig.Graphics.HUDScale;
-        public static float yScale => GameMain.GraphicsHeight / ReferenceResolution.Y * GameSettings.CurrentConfig.Graphics.HUDScale;
+        // public static float Scale => (UIWidth / ReferenceResolution.X + GameMain.GraphicsHeight / ReferenceResolution.Y) / 2.0f * GameSettings.CurrentConfig.Graphics.HUDScale;
+        public static float Scale => 1.25f * GameMain.GraphicsHeight / ReferenceResolution.Y * GameSettings.CurrentConfig.Graphics.HUDScale;
+        public static float xScale => 1.25f * UIWidth / ReferenceResolution.X * GameSettings.CurrentConfig.Graphics.HUDScale;
+        public static float yScale => 1.25f * GameMain.GraphicsHeight / ReferenceResolution.Y * GameSettings.CurrentConfig.Graphics.HUDScale;
         public static int IntScale(float f) => (int)(f * Scale);
         public static int IntScaleFloor(float f) => (int)Math.Floor(f * Scale);
         public static int IntScaleCeiling(float f) => (int)Math.Ceiling(f * Scale);

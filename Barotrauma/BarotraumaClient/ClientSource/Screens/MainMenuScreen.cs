@@ -116,7 +116,7 @@ namespace Barotrauma
             FetchRemoteContent();
 #endif
 
-            float labelHeight = 0.32f;
+            float labelHeight = 0.27f;
 
 
             // === CAMPAIGN

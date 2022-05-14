@@ -1,3 +1,4 @@
+using Barotrauma.Extensions;
 using Barotrauma.IO;
 using Barotrauma.Media;
 using Barotrauma.Networking;
@@ -89,11 +90,6 @@ namespace Barotrauma
         }
 
         public static ParticleManager ParticleManager;
-
-        public static float ScaleToReference()
-        {
-            return GraphicsHeight / GUI.ReferenceResolution.Y;
-        }
 
         private static World world;
         public static World World
@@ -325,6 +321,11 @@ namespace Barotrauma
             SetWindowMode(GameSettings.CurrentConfig.Graphics.DisplayMode);
 
             defaultViewport = GraphicsDevice.Viewport;
+
+            foreach (var font in GUIStyle.Fonts.Values)
+            {
+                font.Prefabs.ForEach(p => p.LoadFont());
+            }
 
             ResolutionChanged?.Invoke();
         }

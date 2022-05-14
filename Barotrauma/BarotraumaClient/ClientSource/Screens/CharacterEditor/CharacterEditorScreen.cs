@@ -1910,7 +1910,7 @@ namespace Barotrauma.CharacterEditor
         private ToggleButton characterPanelToggle;
         private ToggleButton fileEditToggle;
 
-        private void CreateGUI()
+        public void CreateGUI()
         {
             // Release the old areas
             if (rightArea != null)
@@ -2245,7 +2245,7 @@ namespace Barotrauma.CharacterEditor
         private void CreateContextualControls()
         {
             Point elementSize = new Point(120, 20).Multiply(GUI.Scale);
-            int textAreaHeight = 20;
+            int textAreaHeight = (int)(20 * GUI.Scale);
             // General controls
             backgroundColorPanel = new GUIFrame(new RectTransform(new Vector2(0.5f, 0.1f), centerArea.RectTransform, Anchor.TopRight)
             {
@@ -2492,9 +2492,9 @@ namespace Barotrauma.CharacterEditor
             };
             uniformScalingToggle.TextColor = Color.White;
             var jointScaleElement = new GUIFrame(new RectTransform(sliderSize + new Point(0, textAreaHeight), layoutGroupRagdoll.RectTransform), style: null);
-            var jointScaleText = new GUITextBlock(new RectTransform(new Point(elementSize.X, textAreaHeight), jointScaleElement.RectTransform), $"{GetCharacterEditorTranslation("JointScale")}: {RagdollParams.JointScale.FormatDoubleDecimal()}", Color.WhiteSmoke, textAlignment: Alignment.Center);
+            var jointScaleText = new GUITextBlock(new RectTransform(new Point(elementSize.X, textAreaHeight), layoutGroupRagdoll.RectTransform), $"{GetCharacterEditorTranslation("JointScale")}: {RagdollParams.JointScale.FormatDoubleDecimal()}", Color.WhiteSmoke, textAlignment: Alignment.Center);
             var limbScaleElement = new GUIFrame(new RectTransform(sliderSize + new Point(0, textAreaHeight), layoutGroupRagdoll.RectTransform), style: null);
-            var limbScaleText = new GUITextBlock(new RectTransform(new Point(elementSize.X, textAreaHeight), limbScaleElement.RectTransform), $"{GetCharacterEditorTranslation("LimbScale")}: {RagdollParams.LimbScale.FormatDoubleDecimal()}", Color.WhiteSmoke, textAlignment: Alignment.Center);
+            var limbScaleText = new GUITextBlock(new RectTransform(new Point(elementSize.X, textAreaHeight), layoutGroupRagdoll.RectTransform), $"{GetCharacterEditorTranslation("LimbScale")}: {RagdollParams.LimbScale.FormatDoubleDecimal()}", Color.WhiteSmoke, textAlignment: Alignment.Center);
             jointScaleBar = new GUIScrollBar(new RectTransform(sliderSize, jointScaleElement.RectTransform, Anchor.BottomLeft), barSize: 0.1f, style: "GUISlider")
             {
                 BarScroll = MathHelper.Lerp(0, 1, MathUtils.InverseLerp(RagdollParams.MIN_SCALE, RagdollParams.MAX_SCALE, RagdollParams.JointScale)),
@@ -2557,7 +2557,7 @@ namespace Barotrauma.CharacterEditor
             };
 
             // Just an approximation
-            Point buttonSize = new Point(200, 40).Multiply(GUI.Scale);
+            Point buttonSize = new Point(200, 20).Multiply(GUI.Scale);
             extraRagdollControls = new GUIFrame(new RectTransform(new Point(buttonSize.X, buttonSize.Y * 4), centerArea.RectTransform, Anchor.BottomRight)
             {
                 AbsoluteOffset = new Point(30, 0).Multiply(GUI.Scale),

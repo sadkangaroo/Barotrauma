@@ -455,7 +455,6 @@ namespace Barotrauma
 
         public static void SetCurrentConfig(Config newConfig)
         {
-            newConfig.Graphics.TextScale = newConfig.Graphics.Height / 1080.0f;
             bool setGraphicsMode =
                 currentConfig.Graphics.Width != newConfig.Graphics.Width
                 || currentConfig.Graphics.Height != newConfig.Graphics.Height
@@ -467,8 +466,6 @@ namespace Barotrauma
             bool audioOutputChanged = currentConfig.Audio.AudioOutputDevice != newConfig.Audio.AudioOutputDevice;
             bool voiceCaptureChanged = currentConfig.Audio.VoiceCaptureDevice != newConfig.Audio.VoiceCaptureDevice;
 
-            bool textScaleChanged = Math.Abs(currentConfig.Graphics.TextScale - newConfig.Graphics.TextScale) > MathF.Pow(2.0f, -7);
-
             currentConfig = newConfig;
 
 #if CLIENT
@@ -478,14 +475,6 @@ namespace Barotrauma
                 GameMain.Instance.ApplyGraphicsSettings();
             }
 
-            if (textScaleChanged)
-            {
-                foreach (var font in GUIStyle.Fonts.Values)
-                {
-                    font.Prefabs.ForEach(p => p.LoadFont());
-                }
-            }
-            
             if (setGraphicsMode)
             {
                 GameMain.Instance.ApplyGraphicsSettings();

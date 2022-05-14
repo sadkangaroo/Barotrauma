@@ -171,7 +171,6 @@ namespace Barotrauma
             Point newSize = new Point(largestWidth, children.Sum(c => c.Rect.Height) + verticalPadding);
             //resize the menu itself taking into account the option menus relative Y size
             RectTransform.NonScaledSize = new Point(newSize.X, newSize.Y + (HeaderLabel != null ? HeaderLabel.Rect.Height : 0));
-            DebugConsole.NewMessage(optionList.RectTransform.RelativeSize.Y.ToString());
             optionList.RectTransform.NonScaledSize = newSize;
 
             // move the context menu if it would go outside of screen

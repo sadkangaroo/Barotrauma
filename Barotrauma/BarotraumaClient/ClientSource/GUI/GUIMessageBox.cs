@@ -15,7 +15,7 @@ namespace Barotrauma
 
         private static int DefaultWidth
         {
-            get { return (int)(400 * GameMain.ScaleToReference()); }
+            get { return (int)(400 * GUI.Scale); }
         }
 
         private float inGameCloseTimer = 0.0f;
@@ -158,13 +158,12 @@ namespace Barotrauma
                     IgnoreLayoutGroups = true
                 };
 
-                int buttonSize = 35;
+                int buttonSize = (int)(35 * GUI.Scale);
                 var buttonStyle = GUIStyle.GetComponentStyle("GUIButton");
-                // if (buttonStyle != null && buttonStyle.Height.HasValue)
-                // {
-                   // buttonSize = buttonStyle.Height.Value;
-                // }
-                buttonSize = (int)(buttonSize * GameMain.ScaleToReference());
+                if (buttonStyle != null && buttonStyle.Height.HasValue)
+                {
+                   buttonSize = buttonStyle.Height.Value;
+                }
 
                 buttonContainer.RectTransform.NonScaledSize = buttonContainer.RectTransform.MinSize = buttonContainer.RectTransform.MaxSize = 
                     new Point(buttonContainer.Rect.Width, (buttonSize * buttons.Length));

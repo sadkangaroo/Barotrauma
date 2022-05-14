@@ -2911,7 +2911,7 @@ namespace Barotrauma
                     {
                         textTag = "MissionType.Pirate";
                     }
-                    new GUITextBlock(new RectTransform(new Vector2(1.0f, 0.0f), subList.Content.RectTransform) { MinSize = new Point(0, 35) },
+                    new GUITextBlock(new RectTransform(new Vector2(1.0f, 0.0f), subList.Content.RectTransform),
                         TextManager.Get(textTag), font: GUIStyle.LargeFont, textAlignment: Alignment.Center, style: "ListBoxElement")
                     {
                         CanBeFocused = false
@@ -2919,7 +2919,7 @@ namespace Barotrauma
                     prevSub = sub;
                 }
 
-                GUITextBlock textBlock = new GUITextBlock(new RectTransform(new Vector2(1.0f, 0.0f), subList.Content.RectTransform) { MinSize = new Point(0, 30) },
+                GUITextBlock textBlock = new GUITextBlock(new RectTransform(new Vector2(1.0f, 0.0f), subList.Content.RectTransform),
                     ToolBox.LimitString(sub.Name, GUIStyle.Font, subList.Rect.Width - 80))
                 {
                     UserData = sub,
@@ -4614,7 +4614,7 @@ namespace Barotrauma
 
             GUITextBlock CreateTextBlock(LocalizedString name, LocalizedString description, int index, Command command)
             {
-                return new GUITextBlock(new RectTransform(new Vector2(1.0f, 0.05f), undoBufferList.Content.RectTransform) { MinSize = new Point(0, 15) },
+                return new GUITextBlock(new RectTransform(new Vector2(1.0f, 0), undoBufferList.Content.RectTransform),
                     ToolBox.LimitString(name.Value, GUIStyle.SmallFont, undoBufferList.Content.Rect.Width), font: GUIStyle.SmallFont, textColor: index == commandIndex ? GUIStyle.Green : (Color?) null)
                 {
                     UserData = command,

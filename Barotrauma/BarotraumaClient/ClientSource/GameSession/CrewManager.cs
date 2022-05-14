@@ -178,6 +178,7 @@ namespace Barotrauma
             #endregion
 
             #region Reports
+            /*
             var chatBox = ChatBox ?? GameMain.Client?.ChatBox;
             if (chatBox != null)
             {
@@ -194,6 +195,7 @@ namespace Barotrauma
                     return true;
                 };
             }
+            */
 
             var reports = OrderPrefab.Prefabs.Where(o => o.IsReport && o.SymbolSprite != null && !o.Hidden).ToArray();
             if (reports.None())
@@ -203,7 +205,7 @@ namespace Barotrauma
             }
 
             ReportButtonFrame = new GUILayoutGroup(new RectTransform(
-                new Point((HUDLayoutSettings.ChatBoxArea.Height - chatBox.ToggleButton.Rect.Height - (int)((reports.Length - 1) * 5 * GUI.Scale)) / reports.Length, HUDLayoutSettings.ChatBoxArea.Height - chatBox.ToggleButton.Rect.Height), guiFrame.RectTransform))
+                new Point((HUDLayoutSettings.ChatBoxArea.Height - (int)((reports.Length - 1) * 5 * GUI.Scale)) / reports.Length, HUDLayoutSettings.ChatBoxArea.Height), guiFrame.RectTransform))
             {
                 AbsoluteSpacing = (int)(5 * GUI.Scale),
                 UserData = "reportbuttons",
@@ -211,7 +213,7 @@ namespace Barotrauma
                 Visible = false
             };
 
-            ReportButtonFrame.RectTransform.AbsoluteOffset = new Point(0, -chatBox.ToggleButton.Rect.Height);
+            ReportButtonFrame.RectTransform.AbsoluteOffset = new Point(0, 0);
 
             CreateReportButtons(this, ReportButtonFrame, reports, false);
 

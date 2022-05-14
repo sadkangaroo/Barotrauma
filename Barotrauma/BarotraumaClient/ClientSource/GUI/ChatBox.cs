@@ -542,11 +542,13 @@ namespace Barotrauma
                 showNewMessagesButton.Visible = false;
             }
 
+            /*
             if (ToggleButton != null)
             {
                 ToggleButton.Selected = ToggleOpen;
                 ToggleButton.RectTransform.AbsoluteOffset = new Point(GUIFrame.Rect.Right, GUIFrame.Rect.Y + HUDLayoutSettings.ChatBoxArea.Height - ToggleButton.Rect.Height);
             }
+            */
 
             if (Character.Controlled != null && ChatMessage.CanUseRadio(Character.Controlled, out WifiComponent radio))
             {

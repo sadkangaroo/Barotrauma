@@ -3234,6 +3234,12 @@ namespace Barotrauma
                 GameMain.SubEditorScreen.UpdateEntityList();
                 NewMessage("Submarine editor reloaded.");
             }));
+
+            commands.Add(new Command("reloadchaeditor", "Reload the character editor.", (string[] args) =>
+            {
+                GameMain.CharacterEditorScreen.CreateGUI();
+                NewMessage("Character editor reloaded.");
+            }));
         }
 
         private static void ReloadWearables(Character character, int variant = 0)

@@ -185,8 +185,7 @@ namespace Barotrauma
             {
                 if (!subElement.Name.ToString().Equals("size", StringComparison.OrdinalIgnoreCase)) { continue; }
                 Point maxResolution = subElement.GetAttributePoint("maxresolution", new Point(int.MaxValue, int.MaxValue));
-                //if (GameMain.GraphicsWidth <= maxResolution.X && GameMain.GraphicsHeight <= maxResolution.Y)
-                if (int.MaxValue == maxResolution.X && int.MaxValue == maxResolution.Y)
+                if (1920 == maxResolution.X && 1080 == maxResolution.Y)
                 {
                     size = new Point(
                         subElement.GetAttributeInt("width", 0), 
@@ -194,18 +193,28 @@ namespace Barotrauma
                     break;
                 }
             }
-            var style_scale = 0.65f;
-            if (element.Name.ToString().Equals("GUIButtonSmall", StringComparison.OrdinalIgnoreCase)) 
+            if (size.X == 0 && size.Y == 0)
             {
-                style_scale = 1.0f;
+                foreach (var subElement in element.Elements())
+                {
+                    if (!subElement.Name.ToString().Equals("size", StringComparison.OrdinalIgnoreCase)) { continue; }
+                    Point maxResolution = subElement.GetAttributePoint("maxresolution", new Point(int.MaxValue, int.MaxValue));
+                    if (int.MaxValue == maxResolution.X && int.MaxValue == maxResolution.Y)
+                    {
+                        size = new Point(
+                            subElement.GetAttributeInt("width", 0), 
+                            subElement.GetAttributeInt("height", 0));
+                        break;
+                    }
+                }
             }
             if (size.X > 0) 
             { 
-                Width = (int)Math.Ceiling(size.X * GameSettings.CurrentConfig.Graphics.TextScale * style_scale - 0.01); 
+                Width = (int)Math.Ceiling(size.X * GUI.Scale - 0.01); 
             }
             if (size.Y > 0) 
             { 
-                Height = (int)Math.Ceiling(size.Y * GameSettings.CurrentConfig.Graphics.TextScale * style_scale - 0.01); 
+                Height = (int)Math.Ceiling(size.Y * GUI.Scale - 0.01); 
             }
         }
 

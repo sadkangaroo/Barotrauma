@@ -130,21 +130,21 @@ namespace Barotrauma.Items.Components
 
 
             Point maxIndicatorSize = new Point(int.MaxValue, (int)(40 * GUI.Scale));
-            criticalHeatWarning = new GUITickBox(new RectTransform(new Vector2(0.3f, 1.0f), topLeftArea.RectTransform) { MaxSize = maxIndicatorSize },
+            criticalHeatWarning = new GUITickBox(new RectTransform(new Vector2(0.3f, 1.0f), topLeftArea.RectTransform),
                 TextManager.Get("ReactorWarningCriticalTemp"), font: GUIStyle.SubHeadingFont, style: "IndicatorLightRed")
             {
                 Selected = false,
                 Enabled = false,
                 ToolTip = TextManager.Get("ReactorHeatTip")
             };
-            criticalOutputWarning = new GUITickBox(new RectTransform(new Vector2(0.3f, 1.0f), topLeftArea.RectTransform) { MaxSize = maxIndicatorSize },
+            criticalOutputWarning = new GUITickBox(new RectTransform(new Vector2(0.3f, 1.0f), topLeftArea.RectTransform),
                 TextManager.Get("ReactorWarningCriticalOutput"), font: GUIStyle.SubHeadingFont, style: "IndicatorLightRed")
             {
                 Selected = false,
                 Enabled = false,
                 ToolTip = TextManager.Get("ReactorOutputTip")
             };
-            lowTemperatureWarning = new GUITickBox(new RectTransform(new Vector2(0.4f, 1.0f), topLeftArea.RectTransform) { MaxSize = maxIndicatorSize },
+            lowTemperatureWarning = new GUITickBox(new RectTransform(new Vector2(0.4f, 1.0f), topLeftArea.RectTransform),
                 TextManager.Get("ReactorWarningCriticalLowTemp"), font: GUIStyle.SubHeadingFont, style: "IndicatorLightRed")
             {
                 Selected = false,
